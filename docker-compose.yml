@@ -1,3 +1,5 @@
+version: '3'
+
 services:
   message-broker:
     image: apache/activemq-artemis:latest-alpine
@@ -7,3 +9,7 @@ services:
     environment:
       ANONYMOUS_LOGIN: 'true'
     restart: always
+  server:
+    build: .
+    ports:
+      - '8000:8000'
