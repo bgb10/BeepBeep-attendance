@@ -9,7 +9,7 @@ services:
     environment:
       ANONYMOUS_LOGIN: 'true'
     restart: always
-  server:
-    build: .
+  command-server:
+    build: ./command-server
     ports:
       - '8000:8000'
