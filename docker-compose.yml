@@ -4,7 +4,7 @@ services:
   message-broker:
     image: apache/activemq-artemis:latest-alpine
     ports:
-      - '61616:61616' # STOMP port
+      - '61613:61613' # STOMP port
       - '8161:8161' # admin port
     environment:
       ANONYMOUS_LOGIN: 'true'
