@@ -13,3 +13,5 @@ services:
     build: ./command-server
     ports:
       - '8000:8000'
+    depends_on:
+      - message-broker
