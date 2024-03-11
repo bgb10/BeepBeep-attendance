@@ -2,12 +2,12 @@ version: '3'
 
 services:
   message-broker:
-    image: apache/activemq-artemis:latest-alpine
+    image: apache/activemq-classic:latest
     ports:
       - '61613:61613' # STOMP port
       - '8161:8161' # admin port
     environment:
-      ANONYMOUS_LOGIN: 'true'
+      - ACTIVEMQ_OPTS= -Djetty.host=0.0.0.0 -Djava.util.logging.config.file=logging.properties -Djava.security.auth.login.config=/opt/apache-activemq/conf/login.config
     restart: always
   command-server:
     build: ./command-server
