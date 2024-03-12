@@ -1,19 +1,15 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from stomp import Connection
+from mq_connection import get_active_mq_connection
+from command import router as command_router
 
 app = FastAPI()
 
-
-def get_active_mq_connection():
-    # Implement connection logic here
-    connection = Connection([('localhost', 61613)])
-    connection.connect(wait=True)
-    return connection
+app.include_router(command_router, prefix="/commands")
 
 
 @app.on_event("startup")
-async def startup_event():
-    active_mq_connection = get_active_mq_connection()
+async def startup_event(connection: Connection = Depends(get_active_mq_connection)):
     print("Connected to ActiveMQ.")
 
 
