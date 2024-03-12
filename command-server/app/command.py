@@ -44,3 +44,33 @@ async def client(
     connection.send(body=json.dumps(message),
                     destination=f'/topic//command/client/{destination}')
     return "message sended."
+
+
+@router.get("/both")
+async def both(
+    destination: int,
+    sampleRate: int,
+    recordLength: int,
+    clientSleepTime: int,
+    beaconSleepTime: int,
+    connection: Connection = Depends(get_active_mq_connection)
+):
+    clientMessage = {
+        "statusCode": destination,
+        "samplerate": sampleRate,
+        "recordLength": recordLength,
+        "sleepTime": clientSleepTime
+    }
+
+    beaconMessage = {
+        "statusCode": destination,
+        "samplerate": sampleRate,
+        "recordLength": recordLength,
+        "sleepTime": beaconSleepTime
+    }
+
+    connection.send(body=json.dumps(clientMessage),
+                    destination=f'/topic//command/client/{destination}')
+    connection.send(body=json.dumps(beaconMessage),
+                    destination=f'/topic//command/beacon/{destination}')
+    return "message sended."
