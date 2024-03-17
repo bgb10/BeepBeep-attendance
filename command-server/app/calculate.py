@@ -24,10 +24,14 @@ def get_matlab_engine():
     return MatlabEngineSingleton()
 
 
-# by using "def", function executes in different thread(worker thread) apart from main thread
-# don't use async def
 @router.get("/beepbeep")
 def calculate_distances(eng=Depends(get_matlab_engine)):
+    """
+    In FastAPI, "async def" works on Main thread, thus Main thread could be blocked while Matlab is running.
+    By using "def", function executes in different thread(worker thread) apart from main thread.
+    Thus, main thread not blocks!
+    """
+
     tf = eng.isprime(37)
 
     return tf
