@@ -1,5 +1,7 @@
 from stomp import Connection, ConnectionListener
 import json
+import numpy as np
+from scipy.io.wavfile import write
 
 
 def get_active_mq_connection():
@@ -41,7 +43,7 @@ class StompListener(ConnectionListener):
                 beacon_location = BEACON_PRESET[beacon_number]
                 message_data['position'] = beacon_location
 
-                filename = f"beacon-{beacon_number}.json"
+                filename = f"beacon-{beacon_number}"
             except ValueError:
                 print("Invalid beacon number in destination:", destination)
 
@@ -49,13 +51,16 @@ class StompListener(ConnectionListener):
             client_id = message_data.get('id')
 
             if client_id is not None:
-                filename = f"client-{client_id}.json"
+                filename = f"client-{client_id}"
             else:
                 print("Message does not contain an 'id' field")
 
-        # Store message data to file if filename exists
         try:
-            with open(filename, "w") as file:
+            with open(filename + ".json", "w") as file:
                 file.write(json.dumps(message_data))
+
+            raw_audio = np.array(message_data['raw'], dtype=np.float32)
+            sample_rate = 48000
+            write(filename + ".wav", sample_rate, raw_audio)
         except NameError:
             print("Filename not defined. Data not stored to file.")
