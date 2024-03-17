@@ -5,6 +5,7 @@ import json
 def get_active_mq_connection():
     # Implement connection logic here
     connection = Connection([('localhost', 61613)])
+    connection.set_listener('listner', StompListener())
     connection.connect(wait=True)
     connection.subscribe(destination='/topic//data/client', id=1, ack='auto')
     connection.subscribe(destination='/topic//data/beacon/1', id=2, ack='auto')
@@ -37,26 +38,24 @@ class StompListener(ConnectionListener):
             beacon_number = destination.split('/')[-1]
             try:
                 beacon_number = int(beacon_number)
-                if 'id' in message_data:
-                    beacon_id = int(message_data['id'])
-                    if beacon_id in BEACON_PRESET:
-                        # Use statusCode to find the location from BEACON_PRESET
-                        beacon_location = BEACON_PRESET[int(beacon_id)]
-                        # Update the position in message_data
-                        message_data['position'] = beacon_location
-                    else:
-                        print(f"Unknown beacon statusCode: {beacon_id}")
-                # beacon_data[beacon_number] = message_data
-                # to raw
-                print(f"Data added to beacon_data[{beacon_number}]")
+                beacon_location = BEACON_PRESET[beacon_number]
+                message_data['position'] = beacon_location
+
+                filename = f"beacon-{beacon_number}.json"
             except ValueError:
                 print("Invalid beacon number in destination:", destination)
 
         elif destination == '/topic//data/client':
             client_id = message_data.get('id')
+
             if client_id is not None:
-                # client_data[client_id] = message_data
-                # to raw
-                print(f"Data added to client_data[{client_id}]")
+                filename = f"client-{client_id}.json"
             else:
                 print("Message does not contain an 'id' field")
+
+        # Store message data to file if filename exists
+        try:
+            with open(filename, "w") as file:
+                file.write(json.dumps(message_data))
+        except NameError:
+            print("Filename not defined. Data not stored to file.")
