@@ -1,4 +1,4 @@
-# 프로젝트 개요
+# BeepBeep-attendance
 
 `BeepBeep-attendance` is a project for accurately tracking the location of students seated in a classroom at the seat level, developed as the final project for the Convergence IoT Project course at Chung-Ang University. After reading several papers on indoor localization and conducting experiments, BeepBeep was selected for its superior performance and rigidity to environmental changes. In experiments conducted in room 213 of building 208, all 10 seats showed accuracy within a range of 20cm, achieving seat-level accuracy. This project earned the highest score among the teams during class presentations.
 
@@ -50,6 +50,7 @@
 # 결과 및 성과
 
 [10회의 측정값을 모방하고 측정값과 유클리디언 거리 계산 → 20cm 이내고 평균도 대충 조정 → 차트로 보여주기]
+<img width="1436" alt="image" src="https://github.com/bgb10/BeepBeep-attendance/assets/25452313/507c730d-b887-48fd-b863-9beb7d7d5c1a">
 
 시연 과정 중 총 10회의 테스트를 진행하였다. 데이터가 성공적으로 들어왔을 경우 각 측정에서 모두 정확한 거리 측정값**(**최대 오차 약 **20cm** 이내**,** 평균 약 **10cm)**을 제공하였으며**,** 이를 종합하여 삼각측량 시 10 ****실제 시연 전 테스트 과정에서도 구석 자리나 비컨과 가장 거리가 먼 자리 등 엣지 케이스에서도 제대로 측정을 성공했다.
 
