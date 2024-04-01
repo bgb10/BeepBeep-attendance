@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 import matlab.engine
-from typing import List
+from typing import List, Dict
 from pydantic import BaseModel
 
 router = APIRouter()
@@ -11,6 +11,11 @@ class Beacon(BaseModel):
     x: float
     y: float
     estimatedDistanceToClient: float
+
+
+class Position(BaseModel):
+    x: float
+    y: float
 
 
 class MatlabEngineSingleton:
@@ -80,3 +85,43 @@ def triangulation(beaconList: List[Beacon]):
     y = (C * D - A * F) / (B * D - A * E)
 
     return x, y
+
+
+table_coordinates = {
+    0: (75, 0),
+    1: (75, 128),
+    2: (75, 246),
+    3: (75, 363),
+    4: (75, 473),
+    5: (75, 583),
+    6: (360, 0),
+    7: (360, 128),
+    8: (360, 246),
+    9: (360, 363),
+    10: (360, 473),
+    11: (360, 583),
+    12: (360, 691),
+    13: (360, 802),
+    14: (625, 0),
+    15: (625, 128),
+    16: (625, 246),
+    17: (625, 363),
+    18: (625, 473),
+    19: (625, 583),
+    20: (625, 691),
+    21: (625, 802)
+}
+
+
+@router.post("/locate")
+def locate_client(position: Position):
+    closest_table = None
+    min_distance = float('inf')
+
+    for table_number, (x, y) in table_coordinates.items():
+        distance = ((position.x - x) ** 2 + (position.y - y) ** 2) ** 0.5
+        if distance < min_distance:
+            min_distance = distance
+            closest_table = table_number
+
+    return {"answer": closest_table}
