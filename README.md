@@ -1,5 +1,10 @@
 # BeepBeep-attendance
 
+| ![image](https://github.com/bgb10/BeepBeep-attendance/assets/25452313/5908388d-cf9d-4516-9433-2a786e15eaf0) | ![image](https://github.com/bgb10/BeepBeep-attendance/assets/25452313/fdf85a48-e1bd-4b6e-b8ae-8a31eec1e316) |
+|:------------------------------------------:|:--------------------------------------------:|
+|                room 213                    |                   features                    |
+
+
 `BeepBeep-attendance` is a project for accurately tracking the location of students seated in a classroom at the seat level, developed as the final project for the Convergence IoT Project course at Chung-Ang University. After reading several papers on indoor localization and conducting experiments, BeepBeep was selected for its superior performance and rigidity to environmental changes. In experiments conducted in room 213 of building 208, all 10 seats showed accuracy within a range of 20cm, achieving seat-level accuracy. This project earned the highest score among the teams during class presentations.
 
 > The project "BeepBeep-attendance" is based on the paper titled "BeepBeep: A high-accuracy acoustic-based system for ranging and localization using COTS devices" by Peng, C., Shen, G., and Zhang Y. in 2012. For specific details regarding the principles and methodologies employed, I recommend referring to the paper itself.
@@ -8,7 +13,9 @@
 
 # Prerequisite
 
-[208관에서 찍을 Android 장비 사진]
+<p align="center">
+    <img src="https://github.com/bgb10/BeepBeep-attendance/assets/25452313/deda8711-3707-4d76-8160-e0657eeff48e" width="50%" alt="Image">
+</p>
 
 - 4 Android devices for transmitting/receiving chirp signals: 
 1 for the client and 3 for the beacons.
@@ -19,6 +26,14 @@
 [local setup]
 
 # Methods
+
+
+| <img src="https://github.com/bgb10/BeepBeep-attendance/assets/25452313/4e05173b-9056-4d13-aa63-83ea208b7d4b" width="600px" alt="Image">| ![Apr-05-2024 15-05-24](https://github.com/bgb10/BeepBeep-attendance/assets/25452313/d15d48f4-0a5a-4c0a-8add-ed348117a3f4) |
+|:------------------------------------------:|:--------------------------------------------:|
+|    Place the two speakers (microphones) facing each other      |   The client repeats 3 times for each beacon   |
+
+
+
 
 1. Beacon Placement: Place three beacons evenly around the client. Since the client's location will be determined using the beacons, ensure they are evenly distributed.
 2. App Launch and Message Queue Connection: Connect all beacons and the client to the Message Queue server.
