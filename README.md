@@ -23,17 +23,16 @@
 
 # Setup
 
-[local setup]
+Uses docker-compose and Makefile for fast build.
+```bash
+make local
+```
 
 # Methods
-
 
 | <img src="https://github.com/bgb10/BeepBeep-attendance/assets/25452313/4e05173b-9056-4d13-aa63-83ea208b7d4b" width="600px" alt="Image">| ![Apr-05-2024 15-05-24](https://github.com/bgb10/BeepBeep-attendance/assets/25452313/d15d48f4-0a5a-4c0a-8add-ed348117a3f4) |
 |:------------------------------------------:|:--------------------------------------------:|
 |    Place the two speakers (microphones) facing each other      |   The client repeats 3 times for each beacon   |
-
-
-
 
 1. Beacon Placement: Place three beacons evenly around the client. Since the client's location will be determined using the beacons, ensure they are evenly distributed.
 2. App Launch and Message Queue Connection: Connect all beacons and the client to the Message Queue server.
@@ -45,6 +44,9 @@
 8. Iteration: Repeat the above measurement for all beacons.
 9. Triangulation: Using the positions of the client and three beacons, determine the client's position through triangulation. **`/calculate/triangulate`**
 10. Final Position Determination: Determine the client's final position by selecting the closest table based on the measured position values. **`/calculate/locate`**
+
+Finally, BeepBeep estimates the client seat like below.
+<img width="1407" alt="image" src="https://github.com/bgb10/BeepBeep-attendance/assets/25452313/b0d12ba1-5212-4f29-94ee-b8887389a8f9">
 
 # Architecture
 
@@ -64,10 +66,7 @@
 
 # 결과 및 성과
 
-[10회의 측정값을 모방하고 측정값과 유클리디언 거리 계산 → 20cm 이내고 평균도 대충 조정 → 차트로 보여주기]
-<img width="1407" alt="image" src="https://github.com/bgb10/BeepBeep-attendance/assets/25452313/b0d12ba1-5212-4f29-94ee-b8887389a8f9">
-
-시연 과정 중 총 10회의 테스트를 진행하였다. 데이터가 성공적으로 들어왔을 경우 각 측정에서 모두 정확한 거리 측정값**(**최대 오차 약 **20cm** 이내**,** 평균 약 **10cm)**을 제공하였으며**,** 이를 종합하여 삼각측량 시 10 ****실제 시연 전 테스트 과정에서도 구석 자리나 비컨과 가장 거리가 먼 자리 등 엣지 케이스에서도 제대로 측정을 성공했다.
+During the demonstration, we ran a total of 10 tests. When the data came in successfully, each measurement provided accurate distance estimates (within a maximum error of about 20 centimeters based on Euclidean distance, with an average of about 10 centimeters), and the measurements were also successful in edge cases, such as corner spots and spots farthest from the beacon. **This project earned the highest score among other teams during class presentations.**
 
 # Limitations
 
